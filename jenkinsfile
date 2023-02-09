@@ -34,6 +34,13 @@ pipeline {
             }
          }
       }
+      stage("Tag and Push") {
+         steps {
+                sh "docker tag jenkins-pipeline_web:latest LeeSeula/jenkins-app:${BUILD_NUMBER}"
+                sh "docker login -u LeeSeula -p dewa!@1004"
+                sh "docker push LeeSeula/jenkins-app:${BUILD_NUMBER}"
+         }
+      }
       stage("deploy") {
          steps {
             sh "docker-compose up -d"
